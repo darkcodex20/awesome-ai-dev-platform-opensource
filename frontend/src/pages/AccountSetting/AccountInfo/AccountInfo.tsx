@@ -22,6 +22,14 @@ const AccountSettingContent = ({ user }: { user: TUserModel }) => {
   const auth = useAuth();
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
 
+    useEffect(() => {
+    if (!auth.isAuthenticated) {
+      setUserData(null);
+      resetToken();
+      navigate("/login");
+    }
+  }, [auth.isAuthenticated, navigate, resetToken]);
+
   const hostname = useMemo(() => {
     let h = window.APP_SETTINGS.hostname;
 
